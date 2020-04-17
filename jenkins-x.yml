@@ -9,7 +9,7 @@ pipelineConfig:
             name: chart
             steps:
               - name: build-and-push-image
-                command: /kaniko/executor --cache=true --cache-dir=/workspace --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION --cache-repo=gcr.io/jenkinsxio-labs-private/cache
+                command: /kaniko/executor --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION
     release:
       pipeline:
         stages:
@@ -18,4 +18,4 @@ pipelineConfig:
             name: chart
             steps:
               - name: build-and-push-image
-                command: /kaniko/executor --cache=true --cache-dir=/workspace --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION --cache-repo=gcr.io/jenkinsxio-labs-private/cache
+                command: /kaniko/executor --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION
