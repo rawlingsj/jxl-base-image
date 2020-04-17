@@ -11,5 +11,5 @@ fi
 
 echo "building container image version: $VERSION"
 
-gcloud builds submit --config cloudbuild.yaml --project jenkinsxio-labs --substitutions=_VERSION="$VERSION"
+gcloud builds submit --config cloudbuild.yaml --project jenkinsxio-labs-private --substitutions=_VERSION="$VERSION"
 
