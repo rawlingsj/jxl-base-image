@@ -80,7 +80,11 @@ ENV JX_HELM3 "true"
 
 ENV DIFF_VERSION 3.1.1
 RUN helm plugin install https://github.com/databus23/helm-diff --version ${DIFF_VERSION} && \
-    helm plugin install https://github.com/aslafy-z/helm-git.git
+    helm plugin install https://github.com/aslafy-z/helm-git.git && \
+    helm plugin install https://github.com/rawlingsj/helm-gcs
+
+# custom built helm-gcs until this is merged https://github.com/hayorov/helm-gcs/pull/44
+COPY helm-gcs /root/.cache/helm/plugins/https-github.com-rawlingsj-helm-gcs/bin/helm-gcs
 
 # hack copying in a custom built bdd-jx and a custom jx from this PR as needed but not merged yet https://github.com/jenkins-x/jx/pull/6664
 # COPY build/jx /usr/local/bin/jx
