@@ -1,18 +1,21 @@
-buildPack: docker
-dockerRegistryOwner: jenkinsxio-labs-private
+buildPack: none
 pipelineConfig:
   pipelines:
-    overrides:
-    - name: container-build
-      step:
-        sh: ./build.sh
+    pullRequest:
+      pipeline:
+        stages:
+          - agent:
+              image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            name: chart
+            steps:
+              - name: build-and-push-image
+                command: /kaniko/executor --cache=true --cache-dir=/workspace --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION --cache-repo=gcr.io/jenkinsxio-labs-private/cache
     release:
-      promote:
-        steps:
-        - command: ./promote.sh
-          dir: /workspace/source
-          name: promote-release
-          image: gcr.io/jenkinsxio/builder-go
-
-
-
+      pipeline:
+        stages:
+          - agent:
+              image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            name: chart
+            steps:
+              - name: build-and-push-image
+                command: /kaniko/executor --cache=true --cache-dir=/workspace --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION --cache-repo=gcr.io/jenkinsxio-labs-private/cache
