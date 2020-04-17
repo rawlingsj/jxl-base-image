@@ -1,6 +1,6 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/jenkinsxio-labs/jxl-base:${_VERSION}', '.' ]
+  args: [ 'build', '-t', 'gcr.io/jenkinsxio-labs-private/jxl-base:${_VERSION}', '.' ]
 substitutions:
   _VERSION: 0.0.1
 timeout: 3600s
@@ -8,4 +8,4 @@ options:
   machineType: 'N1_HIGHCPU_8'
 logsBucket: gs://labs-cloudbuild-logs
 images:
-- 'gcr.io/jenkinsxio-labs/jxl-base:${_VERSION}'
+- 'gcr.io/jenkinsxio-labs-private/jxl-base:${_VERSION}'
