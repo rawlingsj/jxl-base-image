@@ -72,6 +72,10 @@ COPY --from=0 /usr/local/gcloud /usr/local/gcloud
 
 ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
+RUN mkdir -p $HOME/.jx/plugins/bin && \
+    ln -s /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
+    ln -s /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION}
+
 ENV HELM_PLUGINS /root/.cache/helm/plugins/
 ENV JX_HELM3 "true"
 
