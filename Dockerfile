@@ -74,9 +74,10 @@ ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-
 
 RUN mkdir -p $HOME/.jx/plugins/bin && \
     cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
-    cp /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION}
-#    ln -s /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
-#    ln -s /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION}
+    cp /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} && \
+    rm /usr/local/bin/helm /usr/local/bin/helmfile && \
+    ln -s $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} /usr/local/bin/helm && \
+    ln -s $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} /usr/local/bin/helmfile
 
 ENV HELM_PLUGINS /root/.cache/helm/plugins/
 ENV JX_HELM3 "true"
