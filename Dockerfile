@@ -43,20 +43,14 @@ RUN mkdir -p /usr/local/gcloud \
 FROM golang:1.12.17
 
 RUN mkdir /out
-RUN mkdir -p /go/src/github.com/jenkins-x-labs
+RUN mkdir -p /go/src/github.com/jenkins-x
 
-WORKDIR /go/src/github.com/jenkins-x-labs
+WORKDIR /go/src/github.com/jenkins-x
 
 RUN git clone https://github.com/jenkins-x/bdd-jx.git && \
   cd bdd-jx && \
   make testbin && \
   mv build/bddjx /out/bddjx
-
-RUN git clone https://github.com/jenkins-x/jx.git && \
-  cd jx && \
-  git checkout multicluster && \
-  make linux && \
-  mv build/linux/jx /out/jx
 
 # Adding the package path to local
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
