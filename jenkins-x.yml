@@ -19,3 +19,7 @@ pipelineConfig:
             steps:
               - name: build-and-push-image
                 command: /kaniko/executor --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/jenkinsxio-labs-private/jxl-base:$VERSION
+              - name: promote-release
+                command: ./promote.sh
+                dir: /workspace/source
+                image: gcr.io/jenkinsxio-labs-private/jxl
