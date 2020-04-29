@@ -67,17 +67,16 @@ COPY --from=0 /usr/local/gcloud /usr/local/gcloud
 
 RUN mkdir -p $HOME/.jx/plugins/bin
 
-COPY helm-annotate/build/helm-annotate $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION}
+COPY helm-annotate/build/helm-annotate $HOME/.jx/plugins/bin/helmfile-0.0.11
 
-ENV HELM_ANNOTATE_VERSION 0.0.11
 ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-RUN cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
-    cp /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} && \
+RUN cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-3.2.0 && \
+    cp /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-0.111.0 && \
     rm /usr/local/bin/helm /usr/local/bin/helmfile && \
-    ln -s $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} /usr/local/bin/helm && \
-    ln -s $HOME/.jx/plugins/bin/helm-annotate-${HELM_ANNOTATE_VERSION} /usr/local/bin/helm-annotate && \
-    ln -s $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} /usr/local/bin/helmfile
+    ln -s $HOME/.jx/plugins/bin/helm-3.2.0 /usr/local/bin/helm && \
+    ln -s $HOME/.jx/plugins/bin/helm-annotate-0.0.11 /usr/local/bin/helm-annotate && \
+    ln -s $HOME/.jx/plugins/bin/helmfile-0.111.0 /usr/local/bin/helmfile
 
 
 ENV HELM_PLUGINS /root/.cache/helm/plugins/
