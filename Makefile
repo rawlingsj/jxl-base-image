@@ -13,3 +13,7 @@ jx:
 	git clone -b multicluster https://github.com/jenkins-x/jx.git
 	cd jx && make linux
 	cp jx/build/linux/jx build
+
+build:
+	git clone https://github.com/jenkins-x/helm-annotate.git && \
+	cd helm-annotate && make build

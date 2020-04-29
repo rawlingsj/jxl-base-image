@@ -64,14 +64,21 @@ COPY --from=0 /out /usr/local/bin
 COPY --from=1 /out /usr/local/bin
 COPY --from=0 /usr/local/gcloud /usr/local/gcloud
 
+
+RUN mkdir -p $HOME/.jx/plugins/bin
+
+COPY helm-annotate/build/helm-annotate $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION}
+
+ENV HELM_ANNOTATE_VERSION 0.0.11
 ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-RUN mkdir -p $HOME/.jx/plugins/bin && \
-    cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
+RUN cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
     cp /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} && \
     rm /usr/local/bin/helm /usr/local/bin/helmfile && \
     ln -s $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} /usr/local/bin/helm && \
+    ln -s $HOME/.jx/plugins/bin/helm-annotate-${HELM_ANNOTATE_VERSION} /usr/local/bin/helm-annotate && \
     ln -s $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} /usr/local/bin/helmfile
+
 
 ENV HELM_PLUGINS /root/.cache/helm/plugins/
 ENV JX_HELM3 "true"
@@ -83,7 +90,3 @@ RUN helm plugin install https://github.com/databus23/helm-diff --version ${DIFF_
 
 # custom built helm-gcs until this is merged https://github.com/hayorov/helm-gcs/pull/44
 COPY helm-gcs /root/.cache/helm/plugins/https-github.com-rawlingsj-helm-gcs/bin/helm-gcs
-
-# hack copying in a custom built bdd-jx and a custom jx from this PR as needed but not merged yet https://github.com/jenkins-x/jx/pull/6664
-# COPY build/jx /usr/local/bin/jx
-# COPY build/bddjx-linux /usr/local/bin/bddjx
