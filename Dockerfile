@@ -93,7 +93,7 @@ RUN cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-3.2.0 && \
     ln -s $HOME/.jx/plugins/bin/helmfile-0.111.0 /usr/local/bin/helmfile
 
 
-ENV HELM_PLUGINS /root/.cache/helm/plugins/
+ENV HELM_PLUGINS /root/.local/share/helm/plugins/
 ENV JX_HELM3 "true"
 
 ENV DIFF_VERSION 3.1.1
@@ -102,4 +102,4 @@ RUN helm plugin install https://github.com/databus23/helm-diff --version ${DIFF_
     helm plugin install https://github.com/rawlingsj/helm-gcs
 
 # custom built helm-gcs until this is merged https://github.com/hayorov/helm-gcs/pull/44
-COPY helm-gcs /root/.cache/helm/plugins/https-github.com-rawlingsj-helm-gcs/bin/helm-gcs
+COPY helm-gcs /root/.local/share/helm/plugins/https-github.com-rawlingsj-helm-gcs/bin/helm-gcs
