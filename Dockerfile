@@ -93,7 +93,6 @@ RUN cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-3.2.0 && \
     ln -s $HOME/.jx/plugins/bin/helmfile-0.111.0 /usr/local/bin/helmfile
 
 
-ENV HELM_PLUGINS /root/.local/share/helm/plugins/
 ENV JX_HELM3 "true"
 
 ENV DIFF_VERSION 3.1.1
